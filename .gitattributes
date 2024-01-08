@@ -1,0 +1,7 @@
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+
+*                     export-ignore
+/addons/gdui          -export-ignore
+/addons/gdui/**       -export-ignore
+/addons/gdui/*.import export-ignore

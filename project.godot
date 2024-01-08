@@ -1,0 +1,26 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GDUI"
+config/features=PackedStringArray("4.2", "Forward Plus")
+
+[autoload]
+
+LoggerService="*res://addons/gdlogger/logger.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdlogger/plugin.cfg", "res://addons/gut/plugin.cfg")
