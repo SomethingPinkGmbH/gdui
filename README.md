@@ -74,8 +74,6 @@ The `Fadable` has the following functions available:
 | `show_immediately()` | Shows the `Fadable` without a fade. Equivalent to the `show()` default behavior. |
 | `hide_immediately()` | Hides the `Fadable` without a fade. Equivalent to the `hide()` default behavior. |
 
-
-
 ---
 
 </details>
@@ -108,3 +106,73 @@ value.
 > [!TIP]
 > You can set the state of the `Fadable` before adding it to the tree. In this case the `Fadable` will stay in that state
 > until it is added to the tree and continue from there.
+
+---
+
+## `RadialMenu`
+
+The `RadialMenu` is a menu that displays menu items on a disc around the center of the screen. The user can select an
+item from the menu by clicking it or by moving a joystick in the corresponding direction and pressing a button on
+their controller.
+
+The radial menu comes with the ability to customize rendering. Each renderer must implement the `RadialMenuRenderer`
+class and must update the `highlighted_item` option on its assigned radial menu. The default renderer is the
+[`RadialMenuDefaultRenderer`](#radialmenudefaultrenderer).
+
+<details>
+<summary>Configuration options</summary>
+
+### Configuration options
+
+| Option             | Description                                                                                                    | Default                     |
+|--------------------|----------------------------------------------------------------------------------------------------------------|-----------------------------|
+| `items`            | A list of items to display in the radial menu.                                                                 | `[]`                        |
+| `renderer`         | A renderer responsible for drawing the radial menu and updating the `highlighted_item`.                        | `RadialMenuDefaultRenderer` |
+| `highlighted_item` | Number of the item that's currently highlighted. Corresponds to the `highlighted` and `unhighlighted` signals. | `-1`                        |
+| `viewport_size`    | Size of the area the radial menu currently occupies on the screen. Corresponds to the `resize` signal.         | `Vector2(0,0)`              |
+
+
+---
+
+</details>
+
+<details>
+<summary>Signals</summary>
+
+### Signals
+
+The `RadialMenu` has the following signals:
+
+| Signal          | Description                                                                                                              |
+|-----------------|--------------------------------------------------------------------------------------------------------------------------|
+| `items_updated` | Indicates that the list of items in the radial menu have changed.                                                        |
+| `resize`        | Indicates that the size of the radial menu has changed on the screen.                                                    |
+| `highlighted`   | Indicates that an item has been highlighted. The radial menu and the number of the selected item are sent as parameters. |
+| `unhighlighted` | Indicates that an item has been unhighlighted. The radial menu is sent as a parameter.                                   |
+| `selected`      | Indicates that an item has been selected by the user.                                                                    |
+| `discard`       | Indicates that the user has clicked outside any acceptable item.                                                         |
+
+---
+
+</details>
+
+---
+
+## `RadialMenuDefaultRenderer`
+
+The default renderer for the radial menu renders a disc shape with the icons on it.
+
+<details>
+<summary>Configuration options</summary>
+
+### Configuration options
+
+| Option             | Description                                                                                           | Default |
+|--------------------|-------------------------------------------------------------------------------------------------------|---------|
+| `outer_radius`     | Outer radius of the disc in percentage of the smaller dimension of the area the radial menu occupies. | `40`    |
+| `inner_radius`     | Inner radius of the disc in percentage of the smaller dimension of the area the radial menu occupies. | `20`    |
+| `background_color` | Color of the disc background.                                                                         | `white` |
+
+---
+
+</details>

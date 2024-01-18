@@ -1,6 +1,7 @@
 ## A fadable is a control container element that fades in either automatically or manually
 ## when added to the tree. If fade_out is called, it fades out and automatically removes 
 ## the node from the tree if desired.
+@tool
 @icon("fadable.svg")
 class_name Fadable extends Control
 
@@ -51,7 +52,7 @@ var state: State = State.NOT_IN_TREE:
 	set(new_state):
 		if state == new_state:
 			return
-		var old_state = state
+		var old_state: State = state
 		
 		match new_state:
 			State.NOT_IN_TREE:
@@ -72,13 +73,13 @@ var state: State = State.NOT_IN_TREE:
 			State.FULLY_VISIBLE:
 				_write_debug_log("Fadable state is now FULLY_VISIBLE.")
 				visible = true
-				$".".modulate.a = 1.0
+				modulate.a = 1.0
 				state = new_state
 				fully_visible.emit(new_state, old_state)
 			State.FULLY_HIDDEN:
 				_write_debug_log("Fadable state is now FULLY_HIDDEN.")
 				visible = false
-				$".".modulate.a = 0.0
+				modulate.a = 0.0
 				state = new_state
 				fully_hidden.emit(new_state, old_state)
 		state_change.emit(new_state, old_state)
@@ -120,14 +121,14 @@ func fade_out() -> void:
 func _process(delta: float) -> void:
 	match state:
 		State.FADING_IN:
-			$".".modulate.a += min(1.0, delta / transition_time)
-			_write_debug_log("Fadable opacity is now %f"%[$".".modulate.a])
-			if $".".modulate.a > 0.99:
+			modulate.a += min(1.0, delta / transition_time)
+			_write_debug_log("Fadable opacity is now %f"%[modulate.a])
+			if modulate.a > 0.99:
 				state = State.FULLY_VISIBLE
 		State.FADING_OUT:
-			$".".modulate.a -= max(0.0, delta / transition_time)
-			_write_debug_log("Fadable opacity is now %s"%[$".".modulate.a])
-			if $".".modulate.a < 0.01:
+			modulate.a -= max(0.0, delta / transition_time)
+			_write_debug_log("Fadable opacity is now %s"%[modulate.a])
+			if modulate.a < 0.01:
 				state = State.FULLY_HIDDEN
 
 func _write_debug_log(message: String) -> void:
@@ -138,7 +139,7 @@ func _write_debug_log(message: String) -> void:
 	logger.debug(message)
 
 func _remove_from_parent() -> void:
-	var parent = get_parent()
+	var parent: Node = get_parent()
 	if parent != null:
 		parent.remove_child(self)
 
